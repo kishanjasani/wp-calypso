@@ -196,14 +196,15 @@ export default {
 		localeTargets: 'any',
 		allowExistingUsers: true,
 	},
-	showBusinessPlanBump: {
-		datestamp: '20300619',
+	showCompositeCheckoutI18N: {
+		datestamp: '20200710',
 		variations: {
-			variantShowPlanBump: 0,
-			control: 100,
+			composite: 90,
+			regular: 10,
 		},
-		defaultVariation: 'control',
+		defaultVariation: 'regular',
 		allowExistingUsers: true,
+		localeTargets: 'any',
 	},
 	offerResetFlow: {
 		datestamp: '20200804',
