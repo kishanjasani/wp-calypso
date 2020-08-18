@@ -33,7 +33,7 @@ function updateNotificationBadge( badgeEnabled ) {
 }
 
 module.exports = function () {
-	ipc.on( 'unread-notices-count', function ( event, count ) {
+	ipc.on( 'unread-notices-count', function ( _, count ) {
 		log.info( 'Notification count received: ' + count );
 		unreadNotificationCount = count;
 

@@ -13,7 +13,6 @@ import * as oAuthToken from 'lib/oauth-token';
 import userUtilities from 'lib/user/utils';
 import { getStatsPathForTab } from 'lib/route';
 import { getReduxStore } from 'lib/redux-bridge';
-import hasUnseenNotifications from 'state/selectors/has-unseen-notifications';
 import { isEditorIframeLoaded } from 'state/editor/selectors';
 import isNotificationsOpen from 'state/selectors/is-notifications-open';
 import { toggleNotificationsPanel, navigate } from 'state/ui/actions';
@@ -22,6 +21,7 @@ import {
 	NOTIFY_DESKTOP_DID_REQUEST_SITE,
 	NOTIFY_DESKTOP_DID_ACTIVATE_JETPACK_MODULE,
 	NOTIFY_DESKTOP_SEND_TO_PRINTER,
+	NOTIFY_DESKTOP_NOTIFICATIONS_UNSEEN_COUNT_SET,
 	NOTIFY_DESKTOP_VIEW_POST_CLICKED,
 } from 'state/desktop/window-events';
 import { canCurrentUserManageSiteOptions } from 'state/sites/selectors';
@@ -62,6 +62,11 @@ const Desktop = {
 			this.onViewPostClicked.bind( this )
 		);
 
+		window.addEventListener(
+			NOTIFY_DESKTOP_NOTIFICATIONS_UNSEEN_COUNT_SET,
+			this.onUnseenCountSet.bind( this )
+		);
+
 		window.addEventListener( NOTIFY_DESKTOP_SEND_TO_PRINTER, this.onSendToPrinter.bind( this ) );
 
 		this.store = await getReduxStore();
@@ -91,21 +96,9 @@ const Desktop = {
 		this.selectedSite = site;
 	},
 
-	notificationStatus: function () {
-		let previousHasUnseen = hasUnseenNotifications( this.store.getState() );
-
-		// Send initial status to main process
-		ipc.send( 'unread-notices-count', previousHasUnseen );
-
-		this.store.subscribe( () => {
-			const hasUnseen = hasUnseenNotifications( this.store.getState() );
-
-			if ( hasUnseen !== previousHasUnseen ) {
-				ipc.send( 'unread-notices-count', hasUnseen );
-
-				previousHasUnseen = hasUnseen;
-			}
-		} );
+	onUnseenCountSet: function ( event ) {
+		const { unseenCount } = event.detail;
+		ipc.send( 'unread-notices-count', unseenCount );
 	},
 
 	sendUserLoginStatus: function () {
