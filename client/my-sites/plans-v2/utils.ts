@@ -320,7 +320,9 @@ export function buildCardFeaturesFromFeatureKeys(
 			if ( category ) {
 				result.push( {
 					heading: category.getTitle(),
-					list: subfeatures.map( ( f ) => buildCardFeatureItemFromFeatureKey( f, options ) ),
+					list: subfeatures.map( ( f: JetpackPlanCardFeature ) =>
+						buildCardFeatureItemFromFeatureKey( f, options )
+					),
 				} as SelectorProductFeaturesSection );
 			}
 		} );
