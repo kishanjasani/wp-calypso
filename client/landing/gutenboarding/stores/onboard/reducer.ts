@@ -200,6 +200,16 @@ const selectedFeatures: Reducer< FeatureId[], OnboardAction > = (
 	return state;
 };
 
+const randomizedDesigns: Reducer< Design[] | undefined, OnboardAction > = ( state, action ) => {
+	if ( action.type === 'SET_RANDOMIZED_DESIGNS' ) {
+		return action.randomizedDesigns;
+	}
+	if ( action.type === 'RESET_ONBOARD_STORE' ) {
+		return undefined;
+	}
+	return state;
+};
+
 const reducer = combineReducers( {
 	domain,
 	domainSearch,
@@ -218,6 +228,7 @@ const reducer = combineReducers( {
 	selectedFeatures,
 	wasVerticalSkipped,
 	shouldShowVerticalInput,
+	randomizedDesigns,
 } );
 
 export type State = ReturnType< typeof reducer >;

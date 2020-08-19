@@ -39,6 +39,7 @@ registerStore< State >( STORE_KEY, {
 		'selectedSite',
 		'selectedFeatures',
 		'plan',
+		'randomizedDesigns',
 	],
 } );
 

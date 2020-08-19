@@ -185,6 +185,11 @@ export const removeFeature = ( featureId: FeatureId ) => ( {
 	featureId,
 } );
 
+export const setRandomizedDesigns = ( randomizedDesigns: Design[] ) => ( {
+	type: 'SET_RANDOMIZED_DESIGNS' as const,
+	randomizedDesigns,
+} );
+
 export type OnboardAction = ReturnType<
 	| typeof resetFonts
 	| typeof resetOnboardStore
@@ -207,4 +212,5 @@ export type OnboardAction = ReturnType<
 	| typeof setPlan
 	| typeof addFeature
 	| typeof removeFeature
+	| typeof setRandomizedDesigns
 >;
