@@ -200,12 +200,15 @@ const selectedFeatures: Reducer< FeatureId[], OnboardAction > = (
 	return state;
 };
 
-const randomizedDesigns: Reducer< Design[] | undefined, OnboardAction > = ( state, action ) => {
+const randomizedDesigns: Reducer< { featured: Design[] }, OnboardAction > = (
+	state = { featured: [] },
+	action
+) => {
 	if ( action.type === 'SET_RANDOMIZED_DESIGNS' ) {
 		return action.randomizedDesigns;
 	}
 	if ( action.type === 'RESET_ONBOARD_STORE' ) {
-		return undefined;
+		return { featured: [] };
 	}
 	return state;
 };

@@ -185,7 +185,7 @@ export const removeFeature = ( featureId: FeatureId ) => ( {
 	featureId,
 } );
 
-export const setRandomizedDesigns = ( randomizedDesigns: Design[] ) => ( {
+export const setRandomizedDesigns = ( randomizedDesigns: { featured: Design[] } ) => ( {
 	type: 'SET_RANDOMIZED_DESIGNS' as const,
 	randomizedDesigns,
 } );
